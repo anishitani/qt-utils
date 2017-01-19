@@ -3,7 +3,7 @@
 ## pattern v<MAJOR>[[.<MINOR>].<BUILD>]                     ##
 ##############################################################
 
-defineTest(GitTagVersion){
+defineReplace(GitTagVersion){
     GIT_VERSION = $$system( cd $$1 && git describe --tags --long --match "v[0-9]*" )
 
     GIT_MAJOR = $$GIT_VERSION
@@ -27,11 +27,8 @@ defineTest(GitTagVersion){
         GIT_BUILD = '.'$$GIT_BUILD
     }
 
-    VERSION= $$GIT_MAJOR$$GIT_MINOR$$GIT_BUILD
-    DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+    VERSION = $$GIT_MAJOR$$GIT_MINOR$$GIT_BUILD
 
-    message( [ $$TARGET ]     Version:    $$VERSION   )
-
-    return(true)
+    return($$VERSION)
 }
 
